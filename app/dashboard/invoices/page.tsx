@@ -1,3 +1,10 @@
+import { Suspense } from "react";
+import { InvoicesTableSkeleton } from "@/app/ui/skeletons";
+
 export default function Page() {
-    return <p>Invoices Page</p>
+    return (
+        <Suspense fallback={<InvoicesTableSkeleton />}>
+            <p>Invoices Page</p>
+        </Suspense>
+    )
 }
