@@ -4,9 +4,9 @@ import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import postgres from 'postgres';
-
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
+
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
  
@@ -26,6 +26,7 @@ const FormSchema = z.object({
   date: z.string(),
 });
  
+
 export type State = {
   errors?: {
     customerId?: string[];
@@ -35,9 +36,11 @@ export type State = {
   message?: string | null;
 };
 
+
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
+
 
 export async function createInvoice(prevState: State, formData: FormData) {
   const validatedFields = CreateInvoice.safeParse({
